@@ -6,6 +6,15 @@ on:
   schedule:
     - cron: '30 20 * * *'
   workflow_dispatch:
+    inputs:
+      suite:
+        description: 'Which suite to run'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - regression
 
 jobs:
   api-tests:
@@ -26,6 +35,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
             echo "SUITE=regression.xml" >> $GITHUB_ENV
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "SUITE=${{ inputs.suite }}.xml" >> $GITHUB_ENV
           else
             echo "SUITE=smoke.xml" >> $GITHUB_ENV
           fi
