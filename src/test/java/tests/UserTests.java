@@ -1,12 +1,15 @@
-import org.testng.annotations.DataProvider;
+package tests;
+import api.UserApi;
 import org.testng.annotations.Test;
 import pojo.User;
 import data.*;
+import base.BaseTest;
+
 import static org.hamcrest.Matchers.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserTests extends BaseTest{
+public class UserTests extends BaseTest {
     @Test(groups = {"smoke", "regression"})
     public void createUser(){
         User user =new User("Yogi","SDET");

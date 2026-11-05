@@ -1,12 +1,11 @@
+package base;
+
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.internal.RequestSpecificationImpl;
 import io.restassured.specification.ResponseSpecification;
-import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import utils.ConfigReader;
 
 import java.util.HashMap;
@@ -28,7 +27,7 @@ public class BaseTest {
 
         RequestSpecBuilder builder = new RequestSpecBuilder()
                 .setBaseUri(ConfigReader.get("base.uri"))
-                .addHeader("x-api-key",ConfigReader.get("api.key"))
+                .addHeader("x-api-key",ConfigReader.getRequired("api.key"))
                 .setContentType(ContentType.JSON).addFilter(new AllureRestAssured());
         RestAssured.requestSpecification = builder.build();
         token=getToken();

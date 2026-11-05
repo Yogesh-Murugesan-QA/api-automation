@@ -1,6 +1,7 @@
-import groovyjarjarantlr4.runtime.Token;
+package tests;
+
+import base.BaseTest;
 import io.qameta.allure.Epic;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -9,6 +10,7 @@ import pojo.CreateUserResponse;
 import pojo.GetUserResponse;
 import pojo.User;
 import pojo.UserData;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class FirstTest extends BaseTest{
+public class FirstTest extends BaseTest {
     @Epic("User Management")
     @Test
     public void getUser(){

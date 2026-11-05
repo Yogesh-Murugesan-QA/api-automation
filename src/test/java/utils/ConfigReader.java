@@ -22,4 +22,13 @@ public class ConfigReader {
         }
         return props.getProperty(key);
     }
+    public static String getRequired(String key) {
+        String value = get(key);
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(
+                    "Missing required config: " + key + " (set env var "
+                            + key.toUpperCase().replace(".", "_") + " or add it to config.properties)");
+        }
+        return value;
+    }
 }
