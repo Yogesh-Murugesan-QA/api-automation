@@ -8,7 +8,7 @@ public class ConfigReader {
     private static final Properties props = new Properties();
     static {
         try (FileInputStream file =
-                     new FileInputStream("src/test/resources/config.properties")) {
+                       new FileInputStream("src/test/resources/config.properties")) {
             props.load(file);
         } catch (IOException e) {
             throw new RuntimeException("Could not load config.properties", e);
