@@ -1,6 +1,7 @@
 package api;
 
 import io.restassured.response.Response;
+import specs.BookerSpec;
 import utils.ConfigReader;
 
 import java.util.Map;
@@ -9,11 +10,9 @@ import static io.restassured.RestAssured.given;
 
 public class BookingApi {
 
-    private static final String BASE = ConfigReader.get("booker.base.uri");
-
     public static String getToken() {
         return given()
-                .baseUri(BASE)
+                .spec(BookerSpec.base())
                 .body(Map.of(
                         "username", ConfigReader.get("booker.username"),
                         "password", ConfigReader.get("booker.password")))
@@ -27,7 +26,7 @@ public class BookingApi {
 
     public static Response createBooking(Object booking) {
         return given()
-                .baseUri(BASE)
+                .spec(BookerSpec.base())
                 .body(booking)
                 .when()
                 .post("/booking");
@@ -35,7 +34,7 @@ public class BookingApi {
 
     public static Response getBooking(int id) {
         return given()
-                .baseUri(BASE)
+                .spec(BookerSpec.base())
                 .pathParam("id", id)
                 .when()
                 .get("/booking/{id}");
@@ -43,9 +42,8 @@ public class BookingApi {
 
     public static Response updateBooking(int id, Object booking, String token) {
         return given()
-                .baseUri(BASE)
+                .spec(BookerSpec.base())
                 .cookie("token", token)
-                .header("Accept", "application/json")
                 .pathParam("id", id)
                 .body(booking)
                 .when()
@@ -54,7 +52,7 @@ public class BookingApi {
 
     public static Response deleteBooking(int id, String token) {
         return given()
-                .baseUri(BASE)
+                .spec(BookerSpec.base())
                 .cookie("token", token)
                 .pathParam("id", id)
                 .when()
