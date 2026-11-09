@@ -1,6 +1,7 @@
 package api;
 
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import specs.BookerSpec;
 import utils.ConfigReader;
 
@@ -41,21 +42,27 @@ public class BookingApi {
     }
 
     public static Response updateBooking(int id, Object booking, String token) {
-        return given()
+        RequestSpecification request = given()
                 .spec(BookerSpec.base())
-                .cookie("token", token)
                 .pathParam("id", id)
-                .body(booking)
-                .when()
-                .put("/booking/{id}");
+                .body(booking);
+
+        if (token != null) {
+            request.cookie("token", token);
+        }
+
+        return request.when().put("/booking/{id}");
     }
 
     public static Response deleteBooking(int id, String token) {
-        return given()
+        RequestSpecification request = given()
                 .spec(BookerSpec.base())
-                .cookie("token", token)
-                .pathParam("id", id)
-                .when()
-                .delete("/booking/{id}");
+                .pathParam("id", id);
+
+        if (token != null) {
+            request.cookie("token", token);
+        }
+
+        return request.when().delete("/booking/{id}");
     }
 }
